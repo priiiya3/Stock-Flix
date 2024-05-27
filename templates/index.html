@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Listing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Listing</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <form method="get" action="/">
+                    <div class="form-group">
+                        <input type="text" name="symbol" class="form-control" placeholder="Enter stock symbol" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="text-md-right mt-md-3">
+                    <a href="{{ url_for('view_wishlist') }}" class="btn btn-secondary">View Wishlist</a>
+                </div>
+            </div>
+        </div>
+
+        {% if query %}
+        <p><a href="{{ url_for('index') }}" class="btn btn-secondary">Go Back to Home Page</a></p>
+        {% endif %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Company Name</th>
+                    <th>Current Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.current_price }}</td>
+                    <td>
+                        <a href="{{ url_for('detail', symbol=stock.symbol) }}" class="btn btn-info">View Details</a>
+                        <a href="{{ url_for('add_to_wishlist', symbol=stock.symbol) }}" class="btn btn-success">Add to Wishlist</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{ pagination.links }}
+        </div>
+    </div>
+</body>
+</html>

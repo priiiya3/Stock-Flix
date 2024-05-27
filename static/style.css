@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.logo-img {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+    object-fit: cover; 
+}

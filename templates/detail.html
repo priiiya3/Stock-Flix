@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ company_profile.name }} ({{ company_profile.ticker }})</h1>
+        <table class="table">
+            <tr>
+                <th>Current Price</th>
+                <td>${{ stock_data.c }}</td>
+            </tr>
+            <tr>
+                <th>Market Cap</th>
+                <td>${{ company_profile.marketCapitalization }}</td>
+            </tr>
+            <tr>
+                <th>52-Week High</th>
+                <td>${{ company_profile.weekHigh }}</td>
+            </tr>
+            <tr>
+                <th>52-Week Low</th>
+                <td>${{ company_profile.weekLow }}</td>
+            </tr>
+        </table>
+        <h2>Recent News</h2>
+        <ul class="list-group">
+            {% for news in stock_news %}
+            <li class="list-group-item">
+                <a href="{{ news.url }}">{{ news.headline }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('add_to_wishlist', symbol=company_profile.ticker) }}" class="btn btn-success">Add to Wishlist</a>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to List</a>
+    </div>
+</body>
+</html>
